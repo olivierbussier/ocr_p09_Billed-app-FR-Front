@@ -17,7 +17,6 @@ export default class NewBill {
   }
   handleChangeFile = e => {
     e.preventDefault()
-    debugger
     const file = this.document.querySelector(`input[data-testid="file"]`).files[0]
     if(!file.name.endsWith('.png') && !file.name.endsWith('.jpg') && !file.name.endsWith('.jpeg')){
       alert('Please upload png or jpg file only.')

@@ -17,7 +17,14 @@ export default class NewBill {
   }
   handleChangeFile = e => {
     e.preventDefault()
+    debugger
     const file = this.document.querySelector(`input[data-testid="file"]`).files[0]
+    if(!file.name.endsWith('.png') && !file.name.endsWith('.jpg') && !file.name.endsWith('.jpeg')){
+      alert('Please upload png or jpg file only.')
+      this.filePath=null
+      this.fileName=null
+      return false;
+    }
     const filePath = e.target.value.split(/\\/g)
     const fileName = filePath[filePath.length-1]
     const formData = new FormData()
@@ -42,7 +49,16 @@ export default class NewBill {
   }
   handleSubmit = e => {
     e.preventDefault()
+    if (this.fileName === null) {
+      alert('Please upload png or jpg file only.')
+      return false;
+    }
+    const file = e.target.querySelector(`input[data-testid="datepicker"]`).value
     console.log('e.target.querySelector(`input[data-testid="datepicker"]`).value', e.target.querySelector(`input[data-testid="datepicker"]`).value)
+    if(!file.name.endsWith('.png') && !file.name.endsWith('.jpg') && !file.name.endsWith('.jpeg')){
+      alert('Please upload png or jpg file only.');
+      return false
+    }
     const email = JSON.parse(localStorage.getItem("user")).email
     const bill = {
       email,

@@ -76,7 +76,6 @@ export default () => {
     }
 
     window.onpopstate = (e) => {
-      debugger
         const user = JSON.parse(localStorage.getItem('user'))
         if (window.location.pathname === "/" && !user) {
             document.body.style.backgroundColor="#0E5AE5"

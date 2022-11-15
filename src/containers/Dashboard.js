@@ -86,7 +86,7 @@ export default class {
         }
         if (this.counter % 2 === 0) {
             bills.forEach(b => {
-              $(`#open-bill${b.id}`).css({ background: '#0D5AE5' })
+                $(`#open-bill${b.id}`).css({ background: '#0D5AE5' })
             })
             $(`#open-bill${bill.id}`).css({ background: '#2A2B35' })
             $('.dashboard-right-container div').html(DashboardFormUI(bill))
@@ -137,15 +137,20 @@ export default class {
             $(`#arrow-icon${this.index}`).css({ transform: 'rotate(0deg)'})
             $(`#status-bills-container${this.index}`).html(cards(filteredBills(bills, getStatus(this.index))))
             this.counter ++
+            filteredBills(bills, getStatus(this.index)).forEach(bill => {
+                console.log("mise en place event click")
+                $(`#open-bill${bill.id}`).on('click', (e) => this.handleEditTicket(e, bill, bills))
+            })
         } else {
+            // Pas nécessaire dans la mesure ou on delete innerHTML
+            // bills.forEach(bill => {
+            //     console.log("remove event click")
+            //     $(`#open-bill${bill.id}`).off('click', (e) => this.handleEditTicket(e, bill, bills))
+            // })
             $(`#arrow-icon${this.index}`).css({ transform: 'rotate(90deg)'})
             $(`#status-bills-container${this.index}`).html("")
             this.counter ++
         }
-        bills.forEach(bill => {
-            console.log("mise en place event click")
-            $(`#open-bill${bill.id}`).click((e) => this.handleEditTicket(e, bill, bills))
-        })
         return bills
     }
 

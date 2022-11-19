@@ -7,7 +7,7 @@ import userEvent from '@testing-library/user-event'
 import DashboardFormUI from "../views/DashboardFormUI.js"
 import DashboardUI from "../views/DashboardUI.js"
 import Dashboard, { filteredBills, cards } from "../containers/Dashboard.js"
-import { ROUTES, ROUTES_PATH } from "../constants/routes"
+import { ROUTES, ROUTES_PATH } from "../constants/routes.js"
 import { localStorageMock } from "../__mocks__/localStorage.js"
 import mockStore from "../__mocks__/store"
 import { bills } from "../fixtures/bills"
@@ -282,9 +282,9 @@ describe("Given I am a user connected as Admin", () => {
             return Promise.reject(new Error("Erreur 404"))
           }
         }})
-      window.onNavigate(ROUTES_PATH.Dashboard)
-      await new Promise(process.nextTick);
-      const message = await screen.getByText(/Erreur 404/)
+        window.onNavigate(ROUTES_PATH.Dashboard)
+        await new Promise(process.nextTick);
+        const message = await screen.getByText(/Erreur 404/)
       expect(message).toBeTruthy()
     })
 
@@ -306,4 +306,3 @@ describe("Given I am a user connected as Admin", () => {
 
   })
 })
-

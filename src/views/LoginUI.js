@@ -17,14 +17,21 @@ const formCard = (typeForm, title) => {
         `<div class="col-sm-6">
             <div class="card">
                 <div class="card-body">
+
                     <form class="form-signin" data-testid="form-${typeForm}">
-                        <h2 class="h3 mb-3 font-weight-normal">${title}</h1>
+                    
+                        <h2 class="h3 mb-3 font-weight-normal">${title}</h2>
+
                         <label for="inputEmail">Votre email</label>
                         <input type="email" data-testid="${typeForm}-email-input" class="form-control" placeholder="johndoe@email.com" required autofocus>
+
                         <label for="inputPassword">Mot de passe</label>
                         <input type="password" data-testid="${typeForm}-password-input" class="form-control" placeholder="******" required>
+
                         <button class="btn btn-lg btn-primary btn-block" data-testid="${typeForm}-login-button" style="background-color: #0E5AE5;" type="submit">Se connecter</button>
+
                     </form>
+
                 </div>
             </div>
         </div>`)

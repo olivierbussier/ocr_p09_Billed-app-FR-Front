@@ -77,14 +77,11 @@ export default class {
     }
 
     handleEditTicket(e, bill, bills) {
-        console.log("bill.id:", bill.id, "this.id", this.id)
         if (this.counter === undefined || this.id !== bill.id) {
             this.counter = 0
-            console.log('reset counter:',this.counter)
         }
         if (this.id === undefined || this.id !== bill.id) {
             this.id = bill.id
-            console.log('reset id:',this.id)
         }
         if (this.counter % 2 === 0) {
             bills.forEach(b => {
@@ -128,7 +125,6 @@ export default class {
     }
 
     handleShowTickets(e, bills, index) {
-        console.log("handleShowTickets")
         if (this.counter === undefined || this.index !== index) {
             this.counter = 0
         }
@@ -140,7 +136,6 @@ export default class {
             $(`#status-bills-container${this.index}`).html(cards(filteredBills(bills, getStatus(this.index))))
             this.counter ++
             filteredBills(bills, getStatus(this.index)).forEach(bill => {
-                console.log("mise en place event click")
                 $(`#open-bill${bill.id}`).on('click', (e) => this.handleEditTicket(e, bill, bills))
             })
         } else {

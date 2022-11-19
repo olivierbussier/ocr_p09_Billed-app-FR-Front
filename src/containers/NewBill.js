@@ -75,10 +75,16 @@ export default class NewBill {
             {id: 'amount'      , bill: 'amount'     , cb: this.validate.checkNumber  , msg: "Montant incorrect"},
             {id: 'pct'         , bill: 'pct'        , cb: this.validate.checkNumber  , msg: "Taxe incorrecte"},
             {id: 'vat'         , bill: 'vat'        , cb: this.validate.noCheck      , msg: ""},
-            {id: 'commentary'  , bill: 'commentary' , cb: this.validate.noCheck      , msg: ""},
-            {id: 'file'        , bill: ''           , cb: this.validate.checkFile    , msg: "Nom de fichier incorrect (jpg ou png seulement)"},
+            {id: 'commentary'  , bill: 'commentary' , cb: this.validate.noCheck      , msg: ""}
         ]
 
+        // Test du fichier attaché
+        if (!this.file || !this.validate.checkFile(this.file.name, this.file.type)) {
+            this.err.setErrMsg('file', "Nom de fichier incorrect (jpg ou png seulement)")
+        } else {
+            this.err.clearErrMsg('file')
+
+        }
         // Constitution de la note et verif des champs
         const bill = {
             billId:     this.billId,
@@ -88,7 +94,9 @@ export default class NewBill {
             status:     'pending'
         }
         var noError = true
+
         fieldsConstraints.forEach((entry) => {
+
             const element = e.target.querySelector(`[data-testid="${entry.id}"]`)
             const result = entry.cb(element.value)
             if (result === false) {
@@ -130,6 +138,7 @@ export default class NewBill {
     }
     // not need to cover this function by tests
     updateBill = (bill) => {
+        debugger
         if (this.store) {
             this.store
             .bills()

@@ -3,6 +3,7 @@
 }
 
 .col-half {
+  position: relative;
   margin:auto;
   width: 75%;
   margin-top: 16px;
@@ -22,6 +23,21 @@
   border-radius: 5px;
 }
 
+.red-border {
+  opacity: 0.5;
+  border: 2px solid #dc1b5b !important;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+.error-msg {
+  position: absolute;
+  bottom: -1.5em;
+  right: 1em;
+  color: #dc1b5b;
+  font-size: x-small;
+}
+
 label {
   font-style: normal;
   font-weight: 500;
@@ -30,6 +46,7 @@ label {
 }
 
 .flex-col {
+  position: relative;
   margin-left: 50px;
 }
 
@@ -37,7 +54,7 @@ label {
   color: #fff;
 }
 
-#btn-send-bill {
+#btn-send-bill, #btn-cancel {
   width: 100px;
   background-color: #0E5AE5;
   font-style: normal;
@@ -46,6 +63,7 @@ label {
   line-height: 26px;
   letter-spacing: 0.2px;
   margin-top: 50px;
+  margin-right: 20px;
 }
 
 textarea, input, select {

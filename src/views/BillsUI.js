@@ -55,26 +55,25 @@ export default ({ data: bills, loading, error }) => {
     <div class='layout'>
       ${VerticalLayout(120)}
       <div class='content'>
+
         <div class='content-header'>
           <div class='content-title'> Mes notes de frais </div>
           <button type="button" data-testid='btn-new-bill' class="btn btn-primary">Nouvelle note de frais</button>
         </div>
+
         <div id="data-table">
-        <table id="example" class="table table-striped" style="width:100%">
-          <thead>
-              <tr>
-                <th>Type</th>
-                <th>Nom</th>
-                <th>Date</th>
-                <th>Montant</th>
-                <th>Statut</th>
-                <th>Actions</th>
-              </tr>
-          </thead>
-          <tbody data-testid="tbody">
-            ${rows(bills)}
-          </tbody>
+
+          <table id="example" class="table table-striped" style="width:100%">
+            <thead>
+                <tr><th>Type</th><th>Nom</th><th>Date</th><th>Montant</th><th>Statut</th><th>Actions</th></tr>
+            </thead>
+
+            <tbody data-testid="tbody">
+              ${rows(bills)}
+            </tbody>
+
           </table>
+          
         </div>
       </div>
       ${modal()}

@@ -65,7 +65,7 @@ export default class {
         $('#arrow-icon1').click((e) => this.handleShowTickets(e, bills, 1))
         $('#arrow-icon2').click((e) => this.handleShowTickets(e, bills, 2))
         $('#arrow-icon3').click((e) => this.handleShowTickets(e, bills, 3))
-        this.getBillsAllUsers()
+        //this.getBillsAllUsers()
         new Logout({ localStorage, onNavigate })
     }
 
@@ -157,6 +157,7 @@ export default class {
     }
 
     getBillsAllUsers = () => {
+
         if (this.store) {
             return this.store
             .bills()

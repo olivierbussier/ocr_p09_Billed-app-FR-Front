@@ -35,5 +35,21 @@ describe("Given I am connected as an employee", () => {
       const datesSorted = [...dates].sort(antiChrono)
       expect(dates).toEqual(datesSorted)
     })
+    test("Then I must have access to 'Nouvelle Note de frais' Button", async () => {
+      document.body.innerHTML = BillsUI({ data: bills })
+      window.onNavigate(ROUTES_PATH.Bills)
+      // test si data-testid="btn-new-bill" est présent
+      const newBill = screen.getByTestId('btn-new-bill')
+      expect(newBill).toBeTruthy()
+    })
+    /*
+    test("If i click on icon eye, I should see attachment", async () => {
+      document.body.innerHTML = BillsUI({ data: bills })
+      window.onNavigate(ROUTES_PATH.Bills)
+      // test si data-testid="btn-new-bill" est présent
+      const newBill = screen.getByTestId('btn-new-bill')
+      expect(newBill).toBeTruthy()
+    })
+    */
   })
 })

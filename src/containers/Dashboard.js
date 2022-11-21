@@ -2,7 +2,6 @@ import { formatDate } from '../app/format.js'
 import DashboardFormUI from '../views/DashboardFormUI.js'
 import BigBilledIcon from '../assets/svg/big_billed.js'
 import { ROUTES_PATH } from '../constants/routes.js'
-// import USERS_TEST from '../constants/usersTest.js'
 import Logout from "./Logout.js"
 
 const USERS_TEST = [
@@ -34,7 +33,7 @@ export const card = (bill) => {
     const firstName = firstAndLastNames.includes('.') ? firstAndLastNames.split('.')[0] : ''
     const lastName = firstAndLastNames.includes('.') ? firstAndLastNames.split('.')[1] : firstAndLastNames
 
-    return (`
+    return (/*html*/`
         <div class='bill-card' id='open-bill${bill.id}' data-testid='open-bill${bill.id}'>
             <div class='bill-card-name-container'>
                 <div class='bill-card-name'> ${firstName} ${lastName} </div>

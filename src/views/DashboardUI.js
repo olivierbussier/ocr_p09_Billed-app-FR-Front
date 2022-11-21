@@ -13,7 +13,7 @@ export default ({ data, loading, error }) => {
     return ErrorPage(error)
   }
 
-  return (`
+  return (/*html*/`
     <div class='layout'>
       ${VerticalLayout(120)}
       <div class='dashboard-content'>
@@ -49,7 +49,7 @@ export default ({ data, loading, error }) => {
             <div id="big-billed-icon" data-testid="big-billed-icon"> ${BigBilledIcon} </div>
           </div>
         </div>
-        
+
       </div>`
   )
 }

@@ -1,6 +1,6 @@
 
 const title = () => {
-    return (
+    return (/*html*/
         `<div class="row">
             <div class="title-container">
                 <svg width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-receipt" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -13,13 +13,13 @@ const title = () => {
 }
 
 const formCard = (typeForm, title) => {
-    return (
+    return (/* html */
         `<div class="col-sm-6">
             <div class="card">
                 <div class="card-body">
 
                     <form class="form-signin" data-testid="form-${typeForm}">
-                    
+
                         <h2 class="h3 mb-3 font-weight-normal">${title}</h2>
 
                         <label for="inputEmail">Votre email</label>
@@ -39,7 +39,7 @@ const formCard = (typeForm, title) => {
 
 export default () => {
 
-    return (
+    return (/*html*/
         `<div class="page-div">
             ${title()}
             <div class="row">

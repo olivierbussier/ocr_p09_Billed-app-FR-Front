@@ -127,7 +127,9 @@ export default class NewBill {
             .then(({fileUrl, key}) => {
                 this.billId = key
                 this.fileUrl = fileUrl
-            }).catch(error => console.error(error))
+            }).catch(error => {
+                console.error(error)
+            })
 
             // 2eme étape, update de la note avec tout le reste
             this.updateBill(bill)

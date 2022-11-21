@@ -333,4 +333,140 @@ describe("Given I am connected as an employee on newbill page", () => {
 
     })
   })
+  describe("after sending a valid form, envoyer must receive", () => {
+    test("an Error 404", async () => {
+
+      const html = NewBillUI()
+      document.body.innerHTML = html
+      //to-do write assertion
+
+      const onNavigate = (pathname) => {
+        document.body.innerHTML = ROUTES({ pathname })
+      }
+
+      Object.defineProperty(window, 'localStorage', { value: localStorageMock })
+      window.localStorage.setItem('user', JSON.stringify({
+        type: 'Admin'
+      }))
+
+      const bill = new NewBill({
+        document, onNavigate, store: mockStore, bills:bills, localStorage: window.localStorage
+      })
+
+      const spy = jest.spyOn(mockStore, "bills")
+      spy.mockClear()
+
+      const handleChangeFile = jest.fn((e) => bill.handleChangeFile(e))
+      const fileInput = screen.getByTestId('file')
+      fileInput.addEventListener('change', handleChangeFile)
+
+      const handleSubmit = jest.fn((e) => bill.handleSubmit(e))
+      const form = screen.getByTestId('form-new-bill')
+      form.addEventListener('click', handleSubmit)
+
+      screen.getByTestId('expense-type').value = "Transports"
+      screen.getByTestId('expense-name').value = "Essai"
+      screen.getByTestId('datepicker').value = "2022-02-27"
+      screen.getByTestId('amount').value = 200
+      screen.getByTestId('pct').value = 20
+
+      var cnt1=0, cnt2=0
+      mockStore.bills.mockImplementation(() => {
+        debugger
+        return {
+          create : () =>  {
+            cnt1++
+            return Promise.reject(new Error("Erreur 404"))
+          },
+          update : () =>  {
+            cnt2++
+            return Promise.reject(new Error("Erreur 404"))
+          }
+        }
+      })
+
+      fireEvent.change(fileInput, {
+        target: {
+          files: [new File(['test.png'], 'test.png', { type: 'image/png' })]
+        }
+      })
+
+      userEvent.click(form)
+      await new Promise(process.nextTick);
+
+      expect(cnt1).toBe(1)
+      expect(cnt2).toBe(1)
+      //expect(spy).toHaveBeenCalledTimes(1)
+
+      // Check we've returned on bills page
+
+    })
+    test("an Error 500", async () => {
+
+      const html = NewBillUI()
+      document.body.innerHTML = html
+      //to-do write assertion
+
+      const onNavigate = (pathname) => {
+        document.body.innerHTML = ROUTES({ pathname })
+      }
+
+      Object.defineProperty(window, 'localStorage', { value: localStorageMock })
+      window.localStorage.setItem('user', JSON.stringify({
+        type: 'Admin'
+      }))
+
+      const bill = new NewBill({
+        document, onNavigate, store: mockStore, bills:bills, localStorage: window.localStorage
+      })
+
+      const spy = jest.spyOn(mockStore, "bills")
+      spy.mockClear()
+
+      const handleChangeFile = jest.fn((e) => bill.handleChangeFile(e))
+      const fileInput = screen.getByTestId('file')
+      fileInput.addEventListener('change', handleChangeFile)
+
+      const handleSubmit = jest.fn((e) => bill.handleSubmit(e))
+      const form = screen.getByTestId('form-new-bill')
+      form.addEventListener('click', handleSubmit)
+
+      screen.getByTestId('expense-type').value = "Transports"
+      screen.getByTestId('expense-name').value = "Essai"
+      screen.getByTestId('datepicker').value = "2022-02-27"
+      screen.getByTestId('amount').value = 200
+      screen.getByTestId('pct').value = 20
+
+      var cnt1=0, cnt2=0
+      mockStore.bills.mockImplementation(() => {
+        debugger
+        return {
+          create : () =>  {
+            cnt1++
+            return Promise.reject(new Error("Erreur 500"))
+          },
+          update : () =>  {
+            cnt2++
+            return Promise.reject(new Error("Erreur 500"))
+          }
+        }
+      })
+
+      fireEvent.change(fileInput, {
+        target: {
+          files: [new File(['test.png'], 'test.png', { type: 'image/png' })]
+        }
+      })
+
+      userEvent.click(form)
+      await new Promise(process.nextTick);
+
+      expect(cnt1).toBe(1)
+      expect(cnt2).toBe(1)
+      //expect(spy).toHaveBeenCalledTimes(1)
+
+      // Check we've returned on bills page
+
+    })
+  })
 })

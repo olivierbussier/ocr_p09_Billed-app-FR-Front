@@ -2,9 +2,15 @@ import { formatDate } from '../app/format.js'
 import DashboardFormUI from '../views/DashboardFormUI.js'
 import BigBilledIcon from '../assets/svg/big_billed.js'
 import { ROUTES_PATH } from '../constants/routes.js'
-import USERS_TEST from '../constants/usersTest.js'
+// import USERS_TEST from '../constants/usersTest.js'
 import Logout from "./Logout.js"
 
+const USERS_TEST = [
+    'cedric.hiely@billed.com',
+    'christian.saluzzo@billed.com',
+    'jean.limbert@billed.com',
+    'joanna.binet@billed.com'
+]
 export const filteredBills = (data, status) => {
     return (data && data.length) ?
         data.filter(bill => {

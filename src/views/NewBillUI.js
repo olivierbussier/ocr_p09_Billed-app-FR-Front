@@ -10,6 +10,7 @@ export default () => {
           <div class='content-title'> Envoyer une note de frais </div>
         </div>
         <div class="form-newbill-container content-inner">
+          <div id="error-message"></div>
           <form data-testid="form-new-bill" novalidate>
             <div class="row">
                 <div class="col-md-6">

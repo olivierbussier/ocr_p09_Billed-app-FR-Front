@@ -130,17 +130,26 @@ export default class NewBill {
             .then(({fileUrl, key}) => {
                 this.billId = key
                 this.fileUrl = fileUrl
+                this.updateBill(bill)
+                this.onNavigate(ROUTES_PATH['Bills'])
             }).catch(error => {
-                console.error(error)
+                debugger
+                this.affErreur(error)
             })
-
             // 2eme étape, update de la note avec tout le reste
-            this.updateBill(bill)
-            this.onNavigate(ROUTES_PATH['Bills'])
         } else {
             return false
         }
     }
+
+    affErreur(error) {
+        const errorMsg = this.document.getElementById('error-message')
+        errorMsg.innerHTML = /*html*/`<div class="alert alert-danger" data-testid="error-api" role="alert">Une erreur est apparue : ${error}</div>`
+        setTimeout(() => {
+            errorMsg.innerHTML = ''
+        }, 3000)
+    }
+
     // not need to cover this function by tests
     updateBill = (bill) => {
         if (this.store) {
@@ -149,7 +158,9 @@ export default class NewBill {
             .update({data: JSON.stringify(bill), selector: this.billId})
             .then(() => {
                 this.onNavigate(ROUTES_PATH['Bills'])
-            }).catch(error => console.error(error))
+            }).catch(error => {
+                this.affErreur(error)
+            })
         }
     }
 }

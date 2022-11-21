@@ -372,7 +372,6 @@ describe("Given I am connected as an employee on newbill page", () => {
 
       var cnt1=0, cnt2=0
       mockStore.bills.mockImplementation(() => {
-        debugger
         return {
           create : () =>  {
             cnt1++
@@ -394,12 +393,15 @@ describe("Given I am connected as an employee on newbill page", () => {
       userEvent.click(form)
       await new Promise(process.nextTick);
 
-      expect(cnt1).toBe(1)
-      expect(cnt2).toBe(1)
-      //expect(spy).toHaveBeenCalledTimes(1)
+      expect(cnt1).toBe(1)  // Create
+      expect(cnt2).toBe(0)  // Update
 
-      // Check we've returned on bills page
+      // Check we've got an error
 
+      const error = document.querySelector('.alert-danger')
+      expect(error).toBeTruthy()
+      
+      expect(screen.getByText(/Erreur 404/)).toBeTruthy()
     })
     test("an Error 500", async () => {
 
@@ -439,7 +441,6 @@ describe("Given I am connected as an employee on newbill page", () => {
 
       var cnt1=0, cnt2=0
       mockStore.bills.mockImplementation(() => {
-        debugger
         return {
           create : () =>  {
             cnt1++
@@ -461,11 +462,13 @@ describe("Given I am connected as an employee on newbill page", () => {
       userEvent.click(form)
       await new Promise(process.nextTick);
 
-      expect(cnt1).toBe(1)
-      expect(cnt2).toBe(1)
-      //expect(spy).toHaveBeenCalledTimes(1)
+      expect(cnt1).toBe(1)  // Create
+      expect(cnt2).toBe(0)  // Update
 
-      // Check we've returned on bills page
+      // Check we've got an error
+
+      const error = document.querySelector('.alert-danger')
+      expect(error).toBeTruthy()
 
     })
   })

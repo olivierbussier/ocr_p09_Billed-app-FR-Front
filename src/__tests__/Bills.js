@@ -2,11 +2,16 @@
  * @jest-environment jsdom
  */
 
+import mockStore from "../__mocks__/store"
 import {screen, waitFor} from "@testing-library/dom"
 import BillsUI from "../views/BillsUI.js"
+import Bills from "../containers/Bills.js"
 import { bills } from "../fixtures/bills.js"
-import { ROUTES_PATH} from "../constants/routes.js";
+import { ROUTES, ROUTES_PATH} from "../constants/routes.js";
 import {localStorageMock} from "../__mocks__/localStorage.js";
+
+import '@testing-library/jest-dom/extend-expect'
+import '../assets/bootstrap/bootstrap.bundle.js'
 
 import router from "../app/Router.js";
 
@@ -42,14 +47,24 @@ describe("Given I am connected as an employee", () => {
       const newBill = screen.getByTestId('btn-new-bill')
       expect(newBill).toBeTruthy()
     })
-    /*
+
     test("If i click on icon eye, I should see attachment", async () => {
+
+      const onNavigate = (pathname) => {
+        document.body.innerHTML = ROUTES({ pathname })
+      }
+
       document.body.innerHTML = BillsUI({ data: bills })
-      window.onNavigate(ROUTES_PATH.Bills)
-      // test si data-testid="btn-new-bill" est présent
-      const newBill = screen.getByTestId('btn-new-bill')
-      expect(newBill).toBeTruthy()
+
+      const myBills = new Bills({document, onNavigate, store: mockStore, localStorageMock})
+
+      const icon = document.querySelector('div[data-testid="icon-eye"]')
+      const modal = document.querySelector('#modaleFile')
+      expect(modal.classList.contains('show')).not.toBeTruthy()
+      icon.click()
+      expect(modal.classList.contains('show')).toBeTruthy()
+
     })
-    */
+
   })
 })

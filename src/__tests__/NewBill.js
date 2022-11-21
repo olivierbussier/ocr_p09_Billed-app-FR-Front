@@ -284,7 +284,7 @@ describe("Given I am connected as an employee on newbill page", () => {
     })
   })
   describe("after having filled all fields correctly", () => {
-    test("  then Envoyer must send API request and then go to bills page", async () => {
+    test("  then Envoyer must send API request to backend (POST) and then frontend go to bills page", async () => {
 
       const html = NewBillUI()
       document.body.innerHTML = html
@@ -333,7 +333,7 @@ describe("Given I am connected as an employee on newbill page", () => {
 
     })
   })
-  describe("after sending a valid form, envoyer must receive", () => {
+  describe("after sending a valid form, after envoyer we receive from backend", () => {
     test("an Error 404", async () => {
 
       const html = NewBillUI()

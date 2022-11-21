@@ -15,6 +15,8 @@ import '../assets/bootstrap/bootstrap.bundle.js'
 
 import router from "../app/Router.js";
 
+jest.mock("../app/store", () => mockStore)
+
 describe("Given I am connected as an employee", () => {
   describe("When I am on Bills Page", () => {
     test("Then bill icon in vertical layout should be highlighted", async () => {
@@ -66,6 +68,64 @@ describe("Given I am connected as an employee", () => {
       expect(modal.classList.contains('show')).not.toBeTruthy()
       icon.click()
       await waitFor(() => expect(modal.classList.contains('show')).toBeTruthy())
+    })
+  })
+  describe("when I arrive on bills page", () => {
+    test("I got an API 404 error", async () => {
+
+      document.body.innerHTML = ''
+      Object.defineProperty(window, 'localStorage', { value: localStorageMock })
+      window.localStorage.setItem('user', JSON.stringify({
+        type: 'Employee'
+      }))
+
+      const spy = jest.spyOn(mockStore, "bills")
+      spy.mockClear()
+
+      mockStore.bills.mockImplementation(() => {
+
+        return {
+          list : () =>  {
+            return Promise.reject(new Error("Erreur 404"))
+          }
+        }
+      })
+
+      const root = document.createElement("div")
+      root.setAttribute("id", "root")
+      document.body.append(root)
+      router()
+      window.onNavigate(ROUTES_PATH.Bills)
+      await waitFor(() => screen.getByTestId('error-message'))
+      await waitFor(() => screen.getByText(/Erreur 404/))
+    })
+    test("I got an API 500 error", async () => {
+
+      document.body.innerHTML = ''
+      Object.defineProperty(window, 'localStorage', { value: localStorageMock })
+      window.localStorage.setItem('user', JSON.stringify({
+        type: 'Employee'
+      }))
+
+      const spy = jest.spyOn(mockStore, "bills")
+      spy.mockClear()
+
+      mockStore.bills.mockImplementation(() => {
+
+        return {
+          list : () =>  {
+            return Promise.reject(new Error("Erreur 500"))
+          }
+        }
+      })
+
+      const root = document.createElement("div")
+      root.setAttribute("id", "root")
+      document.body.append(root)
+      router()
+      window.onNavigate(ROUTES_PATH.Bills)
+      await waitFor(() => screen.getByTestId('error-message'))
+      await waitFor(() => screen.getByText(/Erreur 500/))
     })
   })
 })

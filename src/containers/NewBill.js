@@ -138,7 +138,6 @@ export default class NewBill {
     }
     // not need to cover this function by tests
     updateBill = (bill) => {
-        debugger
         if (this.store) {
             this.store
             .bills()

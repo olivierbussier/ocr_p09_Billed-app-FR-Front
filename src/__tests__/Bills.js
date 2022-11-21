@@ -47,24 +47,30 @@ describe("Given I am connected as an employee", () => {
       const newBill = screen.getByTestId('btn-new-bill')
       expect(newBill).toBeTruthy()
     })
-
     test("If i click on icon eye, I should see attachment", async () => {
 
       const onNavigate = (pathname) => {
         document.body.innerHTML = ROUTES({ pathname })
       }
 
-      document.body.innerHTML = BillsUI({ data: bills })
-
-      const myBills = new Bills({document, onNavigate, store: mockStore, localStorageMock})
+      const bills = new Bills({ document, onNavigate, store: mockStore, localStorageMock  })
+      bills.getBills().then(data => {
+          document.body.innerHTML = BillsUI({ data })
+          new Bills({ document, onNavigate, store: mockStore, localStorageMock })
+      })
+      // const myBills = new Bills({document, onNavigate, store: mockStore, localStorageMock})
 
       const icon = document.querySelector('div[data-testid="icon-eye"]')
       const modal = document.querySelector('#modaleFile')
+
+      $('#modaleFile').on('shown.bs.modal', function (e) {
+        // do something...
+        console.log("coucou")
+
+      })
       expect(modal.classList.contains('show')).not.toBeTruthy()
       icon.click()
-      expect(modal.classList.contains('show')).toBeTruthy()
-
+      await waitFor(() => expect(modal.classList.contains('show')).toBeTruthy())
     })
-
   })
 })

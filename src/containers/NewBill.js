@@ -18,6 +18,7 @@ export default class NewBill {
         const file = this.document.querySelector(`input[data-testid="file"]`)
         file.addEventListener("change", this.handleChangeFile)
 
+        this.file = null
         this.fileUrl = null
         this.fileName = null
         this.billId = null
@@ -43,6 +44,7 @@ export default class NewBill {
             // Bordure rouge et message sous input
 
             err.setErrMsg('file','Nom de fichier incorrect (jpg ou png seulement)')
+            this.file = null
             this.filePath = null
             this.fileName = null
             return false;
@@ -78,12 +80,14 @@ export default class NewBill {
             {id: 'commentary'  , bill: 'commentary' , cb: this.validate.noCheck      , msg: ""}
         ]
 
+        var noError = true
+
         // Test du fichier attaché
         if (!this.file || !this.validate.checkFile(this.file.name, this.file.type)) {
             this.err.setErrMsg('file', "Nom de fichier incorrect (jpg ou png seulement)")
+            noError = false
         } else {
             this.err.clearErrMsg('file')
-
         }
         // Constitution de la note et verif des champs
         const bill = {
@@ -93,7 +97,6 @@ export default class NewBill {
             fileName:   this.fileName,
             status:     'pending'
         }
-        var noError = true
 
         fieldsConstraints.forEach((entry) => {
 

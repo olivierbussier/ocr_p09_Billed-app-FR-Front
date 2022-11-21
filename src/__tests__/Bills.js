@@ -63,11 +63,6 @@ describe("Given I am connected as an employee", () => {
       const icon = document.querySelector('div[data-testid="icon-eye"]')
       const modal = document.querySelector('#modaleFile')
 
-      $('#modaleFile').on('shown.bs.modal', function (e) {
-        // do something...
-        console.log("coucou")
-
-      })
       expect(modal.classList.contains('show')).not.toBeTruthy()
       icon.click()
       await waitFor(() => expect(modal.classList.contains('show')).toBeTruthy())

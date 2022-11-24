@@ -133,7 +133,6 @@ export default class NewBill {
                 this.updateBill(bill)
                 this.onNavigate(ROUTES_PATH['Bills'])
             }).catch(error => {
-                debugger
                 this.affErreur(error)
             })
             // 2eme étape, update de la note avec tout le reste

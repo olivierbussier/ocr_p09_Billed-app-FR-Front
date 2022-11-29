@@ -43,11 +43,23 @@ describe("Given I am connected as an employee", () => {
       expect(dates).toEqual(datesSorted)
     })
     test("Then I must have access to 'Nouvelle Note de frais' Button", async () => {
-      document.body.innerHTML = BillsUI({ data: bills })
+      Object.defineProperty(window, 'localStorage', { value: localStorageMock })
+      window.localStorage.setItem('user', JSON.stringify({
+        type: 'Employee'
+      }))
+      const root = document.createElement("div")
+      root.setAttribute("id", "root")
+      document.body.append(root)
+      router()
       window.onNavigate(ROUTES_PATH.Bills)
       // test si data-testid="btn-new-bill" est présent
+
+      waitFor(() => screen.getByTestId('btn-new-bill').toBeTruthy())
+
+      // Si on clique le boutn, on doit aller vers la page newbill
       const newBill = screen.getByTestId('btn-new-bill')
-      expect(newBill).toBeTruthy()
+      newBill.click()
+      waitFor(() => screen.getByText(/Nouvelle note de frais/).toBeTruthy())
     })
     test("If i click on icon eye, I should see attachment", async () => {
 
